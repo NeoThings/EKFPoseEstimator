@@ -11,8 +11,8 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-import ekf
-from RosDB import RosDB
+import src.ekf as ekf
+from src.RosDB import RosDB
 
 # -- Constants and Definitions --
 POSITION = 'position'
@@ -43,7 +43,7 @@ def plot3(a, b, c):
 
 def main():
     # -- Open Ros-bag file --
-    db = RosDB("sensors.bag", True)
+    db = RosDB("bags/f4_5.bag", True)
     db.load_bag()  # -- load contents --
 
     # -- Get sensor values --
