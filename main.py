@@ -10,7 +10,6 @@ Web page: www.sinabaharlou.com
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 import src.ekf as ekf
 from src.RosDB import RosDB
 
@@ -33,7 +32,7 @@ IMU = '/dev/imu/raw/dist'
 # -- 3d plot --
 def plot3(a, b, c):
     fig = plt.figure()
-    ax = fig.gca(projection='3d')
+    ax = fig.add_subplot(111, projection='3d')
     ax.plot(a, b, c, label='Estimated path using EKF')
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
@@ -120,14 +119,13 @@ def main():
         state = ekf_filter.update(h_mat, v_mat, measurement)
 
     # -- Plot estimated 2d path --
-    plt.plot(pos[:, 0], pos[:, 1], 'black')
-    plt.plot(x_odom, y_odom, 'b')
+    plt.plot(pos[:, 0], pos[:, 1], 'black', label='estimation')
+    plt.plot(x_odom, y_odom, 'b', label='odometry')
 
     plt.xlabel('X')
     plt.ylabel('Y')
     plt.title('Estimated path using ekf')
-    plt.legend("ekf")
-    plt.legend("odometry")
+    plt.legend()
     plt.grid()
     plt.show()
 
